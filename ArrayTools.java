@@ -5,14 +5,14 @@
 	see if the array contains a user defined number and reverse the array and print the values out.
 */
 
-import java.util.Scanner;
+import java.util.Scanner; //importing Scanner Class
 
 public class ArrayTools{
 	
 	private static
 		Scanner input = new Scanner(System.in); //Globally creating a scanner object which will be used to get user input
 	
-	public static void main(String[] args){
+	public static void main(String[] args){ //defining main function
 		
 		System.out.println("\t Welcome to Lab 2 - ArrayTools");
 		System.out.println("\t Please provide your input wherever it is required to run this Lab... \n\t Thank You");
@@ -28,7 +28,7 @@ public class ArrayTools{
 		String encryptedStr = encrypt(String_to_encrypt, ShiftValue); //encrypt method is called to generate encrypted string and is stored in String variable
         System.out.println("Encrypted Message : " + encryptedStr); //printing out encrypted value
 		
-		System.out.println("Decrypting by " + -1*ShiftValue);
+		System.out.println("Decrypting by " + ShiftValue);
 		//Way 1 -- creating a decrypt method and pass the same shiftvalue without negating it
 		String decryptedStr = decrypt(encryptedStr, ShiftValue); //decrypt method is called to generate decrypted string and is stored in String variable
 		
@@ -75,7 +75,15 @@ public class ArrayTools{
 		int len = strToencrypt.length(); //get length of the string
 		char[] newcharArray = new char[len]; //creating new char array to store the encrypted message
 		for(int i = 0; i < len; i++){
-			newcharArray[i] = (char)(strToencrypt.charAt(i) + shiftValue); //reading each character from the input string and shifting its value by shiftValue(user defined) and storing it in newcharArray
+			/*reading each character from the input string and shifting its value by shiftValue(user defined)
+			  and storing it in newcharArray only if the character is not a 'space'
+			  eg. string is "abc ABC" and shiftValue is '1' then it will be ecrypted to "bcd BCD"
+			*/
+			if(strToencrypt.charAt(i) == ' '){
+				newcharArray[i] = (char)strToencrypt.charAt(i);
+			}else{
+				newcharArray[i] = (char)(strToencrypt.charAt(i) + shiftValue);
+			}
 		}
         String encryptedString = new String(newcharArray); //converting char array to string
 		return encryptedString; //string is returned where the function is called
@@ -86,7 +94,15 @@ public class ArrayTools{
 		int len = strTodecrypt.length(); //get length of the string
 		char[] newcharArray = new char[len];//creating new char array to store the decrypted message
 		for(int i = 0; i < len; i++){
-			newcharArray[i] = (char)(strTodecrypt.charAt(i) - shiftValue); //reading each character from the input string and shifting its value by shiftValue(user defined) and storing it in newcharArray
+			/*reading each character from the input string and shifting its value by shiftValue(user defined)
+			  and storing it in newcharArray only if the character is not a 'space'
+			  eg. string is "bcd BCD" and shiftValue is '1' then it will be decrypted to "abc ABC"
+			*/
+			if(strTodecrypt.charAt(i) == ' '){
+				newcharArray[i] = (char)strTodecrypt.charAt(i);
+			}else{
+				newcharArray[i] = (char)(strTodecrypt.charAt(i) - shiftValue);
+			}
 		}
         String decryptedString = new String(newcharArray); //converting char array to string
 		return decryptedString; //string is returned where the function is called
